@@ -1,0 +1,38 @@
+Eigen methode
+Voorbeeld aaab,aaa,abab,aaab,aaa,aaab,abab
+
+Bruteforce: 
+Stop 1e woord in vector
+Vergelijk woorden onderling.
+Bekijk of lengtes van woorden overeenkomen: Lengtes van woorden kan in O(1);
+Zo niet ga skip huidige woord.
+Ga naar volgende woord.
+Zo wel: Vanaf hier zoals Valid Anagram: Hashset, sorteren of bruteforce.
+Indien 2 woordne gelijk: neem 2e woord op in vector. Ga gewoon zo door (je bent nog steeds
+het eerste woord aan het vergelijken met de rest). Kan maar te traag.
+
+Sorteren: Deze klopt niet helemaal maar gedachtegang is mooi
+Sorteer eerst alle woorden
+Sorteer dan alle letters van woorden
+Je kan krijgen: aaa, aaa, aaaa, aaab, aaab,aaab,abab
+Vergelijk dan de woorden onderling: 
+Maak eerst een vector en stop het eerste woord erin.
+Woorden 1 en 2: check lengte: lengte gelijk? Ja.
+Vergelijk eerst de letters van woord 1 en 2. Gelijk? Ja.
+Stop 2e woord in vector.
+Dan naar woord 2 en 3: lengte gelijk? nee. Vorige vector in resultaat en stop woord 3 in nieuwe vector.
+Dan naar woord 3 en 4: lengte gelijk? ja.
+Vergelijk letters tussen 3 en 4. Gelijk? nee. Sluit vorige vector af en stop 4 in nieuwe vector.
+Dan naar woord 4 en 5: lengte gelijk? ja.
+Letters gelijk? Ja. Stop 5 in vector.
+Vergelijk 5 en 6: lengte gelijk? ja. 
+Letters gelijk? Ja. stop 6 in vector.
+Etc.
+Maar orginele reeks blijft dan niet behouden.
+
+Hashmap (set kan niet frequentie gaat verloren)
+Ik zou door de strings heenlopen en binnen de forloop steeds een hashmap maken van de letters
+die daar in voorkomen. In het voorbeeld hebben hebben we 6 woorden. Dat zijn dan 6 hashmaps/
+Onderling moeten die maps dan met elkaar vergeleken worden. Als maps hetzelfde zijn dan 
+moeten ze samen worden opgenomen in een vector van strings. Onderling vergelijken zou bruteforce 
+kunnen. Maar misschien kan dat ook wel weer met eenof hashmap.

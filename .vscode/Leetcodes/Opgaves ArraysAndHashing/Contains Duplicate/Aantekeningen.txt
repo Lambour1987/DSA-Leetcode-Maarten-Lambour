@@ -1,0 +1,5 @@
+Leetcode 217
+Bruteforce
+Hashset: Find/Count/ Insert
+Sorteren (dan altijd A[i]-A[i-1])
+

@@ -1,0 +1,8 @@
+Denk meteen aan Cycle Detection in een graaf/ Disjoint Union
+Denk toch weer even aan een circular queue
+
+== Tortoise And Haze Algoritme (Fast & Slow Pointer) == 
+
+Gebruik 2 pointers die beide starten op head
+
+
