@@ -1,0 +1,7 @@
+Zie ook College 112: gaat over insertionSort:
+Dat is inderdaad hetzelfde.
+Daar: 1,2,3,5. Insert 4 in gesorteerde array. Dus check vanaf rechts naar links
+Hier: nog niet gesorteerd: bijv. {8,5,7,3,2}. Dan gaan we eerst het linkergetal
+als gesorteerd geven. Verschuiven: dan 8 en 5. Vergelijken. DUs 5,8. Dan Verschuiven
+Dan komt 5,8,7. Vergelijk 7 met 5 en 8: Dat is precies hetzelfde als InsertSort uit
+college 112:dus in de reeks gesorteerde elementen een nieuwe toevoegen.

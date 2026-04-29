@@ -1,0 +1,5 @@
+20-4-2026: Nog maken:
+
+Dus een Linked List waarin we eerst Binary gaan zoeken door de linked list en vervolgens
+deze node deleten en in een aparte variabele stoppen ofzo.
+combineer met count en anderen.

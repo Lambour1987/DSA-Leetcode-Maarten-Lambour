@@ -1,0 +1,7 @@
+Een nummer is een perfect nummer als
+de factoren van een nummer opgeteld gelijk zijn
+aan 2x het nummer.
+Bij n = 6
+factoren 1,2,3,6: dus 1+2+3+6=12. Dat is 2*6 dus ja
+Dus bij n=12: 
+factoren 1,2,3,4,6,12 dus 1+2+3+4+6+12 = 28 dus niet

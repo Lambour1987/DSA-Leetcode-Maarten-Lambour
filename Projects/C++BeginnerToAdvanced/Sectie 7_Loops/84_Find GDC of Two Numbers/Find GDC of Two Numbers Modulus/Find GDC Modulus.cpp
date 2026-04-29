@@ -1,0 +1,1 @@
+//26-4-2026: er is een snellere variant met modulus

@@ -1,0 +1,11 @@
+10-4-20206 College 1 Abdul Bari
+
+Datastructures: The way you orginaze the data in the main memory, during Execution time.
+Dus belangrijk. Tijdens uitvoeren van programma is er interactie met het geheugen. Dat
+moet gewoon zo snel mogelijk.
+
+Fysieke datastructuren: Arrays, Matrices, Linked Lists
+Logische datastructuren: Stacks, Queues,Trees, Graph, hashing
+
+C heeft geen ingebouwde structuren dus zelf maken
+

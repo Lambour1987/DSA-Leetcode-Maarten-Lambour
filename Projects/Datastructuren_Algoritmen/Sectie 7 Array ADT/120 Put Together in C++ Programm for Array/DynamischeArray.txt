@@ -1,0 +1,34 @@
+// 15-4-2026: Dynamische array class in C++ met basisbewerkingen, zoekfuncties, statistische functies, array-manipulatie en set-operaties op arrays.
+
+// == Basisoperaties - CRUD ==
+// Create: Append, Insert
+// Read: Get, Display
+// Update: Set
+// Delete: Delete
+
+// == Search == 
+// Linear 
+// Binary Search
+
+// == Statistics== 
+// Minimum 
+// Maximum 
+// Average 
+// Sum
+
+// == Transform ==
+// Reverse 
+// Reverse2(in place)
+// Rearrange 
+// InsertSort
+// isSorted
+
+// == Set Operations == 
+// Merge 
+// Union 
+// Inter 
+// Differ
+
+
+
+

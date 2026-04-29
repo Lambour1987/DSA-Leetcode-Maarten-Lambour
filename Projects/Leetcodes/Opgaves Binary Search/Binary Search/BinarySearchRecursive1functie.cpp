@@ -1,0 +1,1 @@
+//14-4-2026: Zie chat gpt: ook omgelijk in 1 functie te doen

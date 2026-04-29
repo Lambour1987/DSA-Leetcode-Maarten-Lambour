@@ -1,0 +1,29 @@
+Gegeven de input [10,1,5,6,7,1]
+
+Ik zou een forloop nemen om door de inputarray heen te gaan, dus beginnen bij index 0 (=10).
+Dat is koop. En dan het maximum nemen van het resterende gedeelte (verkoop). (met min of max formule)
+dus
+        10  1   5   6   7   1
+        K               V       :7-10=-3
+            K           V       :7-1=6
+                K       V       :7-5=2
+                    K   V       :7-6=1
+                        K   V   :1-7=-6
+
+Van dat rijtje weer het max nemen: uiteindelijk is dit ook gewoon bruteforce denk i.
+
+Andere oplossing: 1 forloop met minimaal en maximaal bijhouden, misschien is dat eigenlijk hetzelfde
+
+                10  1   5   6   7   1
+koop min        10  1   1   1   1   1   
+koop max        10  10  10  10  10  10  Deze rij overbodig denk ik
+
+verkoop min     X   1   1   1   1   1   Deze rij overbodig denk ik
+verkoop max     X   1   5   6   7   7   
+
+Resultaat      -10  0   4   5   6   7   Dan hier weer het maximum van
+
+Dus bijhouden min koop (nums[0]) en max verkoop op (nums[1])
+Resultaat is verkoopmax min koop min
+
+SuperEasy oplossing zou zijn: zonder rekening te houden met dat verkopen later plaatsvinden dan kopen.

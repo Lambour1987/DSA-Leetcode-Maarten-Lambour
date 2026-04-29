@@ -1,0 +1,9 @@
+t   f   i    f
+1   1 * 1 = 1 
+2   1 * 2 = 2
+4   2 * 3 = 6
+5   6 * 4 = 24
+6   24* 5 = 120
+
+
+23-4-2026: Factorial met for loop nog doen evt.

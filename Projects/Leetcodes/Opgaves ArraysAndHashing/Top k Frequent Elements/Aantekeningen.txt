@@ -1,0 +1,31 @@
+Top K Frequent elements 2-4-2026
+
+Input: 1,2,1,3,4,4,1,2,1,3,4
+
+Input al gesorteert?
+
+Bruteforce: niet snel maar kan wel
+Eerst sorteren: 1,1,1,1,2,2,3,3,4,4,4
+Dan naar eind terugredeneren
+Of andersom sorteren: 4,4,4,3,3,2,2,1,1,1,1,1
+Vanaf begin vergelijk nums[i]-nums[i-1]. 
+Houdt counter bij
+Als het getal verandert (van 3 naar 2 bijv.)
+Maak nieuwe counter.
+Uitkomst: de unieke getallen en hoe vaak die voorkomen.
+Vervolgens moet je die vaak voorkomen opnieuw sorteren.
+Dat vergelijken met k.
+
+Hashmap:
+Makkelijkst: voeg toe: key(getal) en value(waarde)
+Sorteer op waarde O(nLogn)
+Pak k hoogste waarde uit de map
+
+BucketSort? 
+Input: 1,2,2,300,4,2,300
+Of een grootte bucket: Range van 1 tm 300
+Of een bucket met aantallen die voorkomen: 1(1,4) 2(300) 3(2)
+Maar dan moet je sowieso al per element bijhouden aan het begin 
+hoe vaak die voorkomt
+
+MinHeap kan dus ook

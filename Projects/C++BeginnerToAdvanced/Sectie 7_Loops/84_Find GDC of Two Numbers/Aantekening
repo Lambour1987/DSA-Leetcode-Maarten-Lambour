@@ -1,0 +1,12 @@
+// 26-4-2026 Greatest Common Denomintor
+GDC of two numbers
+
+a = 30      b = 21
+a>b dus a-b = 9.
+a = 9, b = 21
+21>9 dus b-a = 12. a=9, b=12
+12>9 dus b-a = 3. a=9, b=3
+9>3 dus a-b = 6. a=6, b=3
+6>3 dus a-b = 3. a=3. b=3
+
+Er is ook zoiets als Least Common Denominator
