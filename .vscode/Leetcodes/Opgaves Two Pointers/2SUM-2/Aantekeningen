@@ -1,9 +1,0 @@
-TwoSum II
-
-Dus al gesorteerd
-
-- Bruteforce
-- Target minus element en dan Binary Search
-
-Binary Search:
-Hoe binary search te doen bij array en je doet Target - Element. En element is

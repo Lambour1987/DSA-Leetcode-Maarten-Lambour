@@ -1,1 +1,0 @@
-// Linked List met 2 pointers en temp variabele

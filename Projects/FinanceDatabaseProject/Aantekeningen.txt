@@ -1,0 +1,22 @@
+30-4-2026:
+Dus een beetje brainstormen
+Eerste test: Ophalen van data van YaHooFinance
+Selecteer top bedrijven met tickets.
+
+
+Platform Input Keuzes
+- Begin klein met niet alle markten (bijv. alleen tech)
+- EDGAR (losse documenten) vs Financial Modelling Prep (Trial periode)
+- Yahoo Finance
+- Backtesting: Had het systeem geld verdiend in het verleden
+
+
+
+
+
+- Jaarlijks nieuwe informatie
+- Gebroken boekjaren
+
+
+Losse investeringsideeen
+- Defensie leveranciers

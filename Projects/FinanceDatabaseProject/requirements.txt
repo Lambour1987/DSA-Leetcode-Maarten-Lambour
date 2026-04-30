@@ -1,0 +1,5 @@
+Lijst van libraries
+
+yfinance
+pandas
+numpy
