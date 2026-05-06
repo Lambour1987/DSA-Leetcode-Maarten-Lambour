@@ -1,0 +1,116 @@
+App Bouwen 24-1-2026
+Update 3-5-2026
+
+Idee:
+- Gebruiker maakt foto met smartphone. 
+- Foto's worden geupload naar server
+- Gebruikers van de app kunnen o.b.v. locatie-informatie achterhalen of zij in de buurt waren van die foto o.b.v. lengte,breedte, hoogte.
+- Gebruikers krijgen geen melding
+- Periodieke upload vs realtime.
+- Maker upload omdat hij bijv. een mooie foto heef gemaakt en anderen mogen dit ook zien. Bedenk 
+wat hij allemaal kan uploaden. Randgevallen (wie upload hij). Blurren.
+- Fotograaf zelf in beeld/ bekende privacy
+- Open Street Map
+- Foto waar gemaakt: Publiek of prive terrein niet zo relevant meer?
+- We beginnen met MVP. En dan niet continu locatie bijhouden.
+- Via BackGround Location Service app laten draaien.
+
+
+Als ik een foto maak is het leuk dat het geen moeite kost om te versturen. 
+Maar je wilt natuurlijk niet alles uploaden. De vraag is: wat wil je wel en niet uploaden.  
+Je kan alleen foto’s van jezelf terugvinden met je eigen account.
+
+Selfies
+De foto’s die gemaakt worden kunnen lokaal op de camera van de gebruiker staan, maar sommige mensen hebben het geupload naar de cloud. 
+Deze situaties uitwerken. 
+Later wil je ook zien waar de foto gemaakt is maar dat kost dan een google maps account.
+
+Overweging:
+- Wat doet de app nu op de mobiel: Bij het maken van een foto wordt extra informatie opgeslagen (gyroscoop en GPS locatie etc) naast
+de informatie die al door de camera gemaakt wordt. Dus koppeling nodig. Gaan we een kopie maken van de data uit de library of
+refereren we daaraan en zetten deze naast eigen app data.
+- Later zou je ook nog kijken of gebruikers apps hebben gebruikt waar ook de gyroscoop is gebruikt en foto's zijn gemaakt (plan voor later)
+
+
+De app moet kunnen laten zien waar ik de app heb gebruikt en foto’s heb gemaakt en natuurlijk een bibliotheek van foto’s waarin je zelf bent gespot.
+Ieder device kan natuurlijk meerdere opnames maken en meerdere personen kunnen ook vaker erop staan.
+
+Denk ook aan door ramen kijken.
+
+Er kunnen natuurlijk meerdere mensen zijn die op een locatie foto’s hebben gemaakt van jou. Dit kunnen er bij succes natuurlijk ook heel erg veel zijn, 
+bijv. een stadion. Bij zulke locaties moet er toch afgewogen worden wat je wel en niet laat zien. ‘slechte’ kwaliteit minder en hoge kwaliteit eerder. 
+Maar wat bepaalt dat. Er zijn natuurlijk ook situaties waarin slechtere kwaliteit meer zichtbaar is, en betere kwaliteit minder zichtbaar. Dus uitwerken.
+
+Denk aan de camera Angle. Ik kan naar je richten maar je niet opgenomen hebben omdat ik boven je film. Of juist naast je sta.
+Filmpjes vs Foto’s
+Het kan natuurlijk ook zijn dat je meerdere bekenden hebt die er staan en dat ze steeds een melding krijgen als je een foto hebt gemaakt en denkt. 
+Ja nu weten we het wel ik hoef niet continu een melding te krijgen. Uitwerken
+
+Later koppelen met maps: de route die je gevolgd hebt dat je dan foto’s erbij kan zetten.
+De volgende mogelijkheden zijn er:
+-	Locatie niet uploaden, dus foto niet uploaden, dus andere persoon zal deze foto niet zien
+-	Locatie wel uploaden, foto niet uploaden, dus andere persoon kan de melding krijgen dat hij op de foto staat maar kan helaas de foto niet zien.
+-	Locatie uploaden en foto uploaden, de andere persoon kan de melding krijgen dat hij is gespot en kan de foto zien.
+
+Nou kan het volgende idee zijn:
+-	Degene die op de foto staat kan te allen tijde de locatie zien en foto zien ook als hij zelf niks heeft ingestuurd
+-	Degene die op de foto staat moet zelf ook zijn informatie delen om foto’s van andere te zien. Die informatie bestaat alleen uit coordinaten. Mogelijkheden tot personificatie zijn er natuurlijk.
+
+Hoeveelheid foto’s
+
+- Denk aan: Periodiek worden foto's geupdate. Maar wat als je nu vlak voor het update moment een foto maakt. Ben je dan te herleiden voor de ander?
+
+- Belangrijk: App draait op achtergrond. Ook als je geen foto's maakt en zelfs op vliegtuigmodus staat. De vraag is wat er dan nog wordt bijgehouden.
+GPS kan dus met vliegtuigmodus.
+
+Kwaliteit foto’s
+
+Ook shots van filmpjes mogelijk.
+Mogelijkheden tot uit het verleden uploaden (geeft meteen reden om marketingtechnisch: iedereen wil dat nu wel weten)
+Data wordt achteraf geupload.
+Om 14:00uur neemt A een foto. B loopt in beeld. Zowel A als B delen hun locatie.
+Je weet dus wel welke foto’s er geupload worden, je weet dat ze gedownload worden, je weet niet door wie. Er zit tijd tussen de foto maken en uploaden. En het uploaden en beschikbaar stellen.
+Denk aan 360 graden foto’s.
+Edge Cases:
+-	Muren en hoeken en verdiepingen.
+-	Mensen die ervoor staan. Bijv. een festival.
+-	Priveruimten vs openbaar. Te allen tijde moeten alle foto’s die 
+-   gemaakt zijn met toestemmnig naar een server geupload worden. Deze kunnen te allen tijde er ook weer afgehaald worden. 
+
+
+Locaties:
+-	Festival, vliegtuig, ruimte, station, college’s, stadion
+
+Wijze waarop de app moet rekening houden met variabelen:
+-	De afstand waarin iemand gefotografeerd kan worden. Hoe ver kan een mens kijken?
+-	De hoeken van de lens
+-	De coordinaten
+
+Scenario’s
+-	Je bent binnen in huis en buiten zijn veel mensen. Dus je wilt alleen foto’s uploaden waar die mensen op staan. 
+-   Je kan ze wel detecteren.
+
+Eerste versie:
+-	
+
+Stappen:
+-	App downloaden
+-	Registeren als gebruiker, data wordt opgeslagen
+-	App gebruikt natuurlijk persoonlijke gegevens, denk aan APV. Keuze welke gegevens te delen en niet.
+-	App heeft toegang nodig tot coordinaten en camera
+
+
+
+
+Simulatie:
+-	Formulier:
+-	Verschil tussen Server en Simulatie en gegevens
+-	Simulatie zelf:
+
+
+
+Vergelijkbare apps
+- Looxie
+- DropIt Geo
+- Tittle
+

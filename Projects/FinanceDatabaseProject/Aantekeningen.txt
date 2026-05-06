@@ -7,12 +7,11 @@ Selecteer top bedrijven met tickets.
 Platform Input Keuzes
 - Begin klein met niet alle markten (bijv. alleen tech)
 - EDGAR (losse documenten) vs Financial Modelling Prep (Trial periode)
-- Yahoo Finance
+- Yahoo Finance, Stooq, en Alpha Vantage
 - Backtesting: Had het systeem geld verdiend in het verleden
 
 
-
-
+- Zie vak financiering 3
 
 - Jaarlijks nieuwe informatie
 - Gebroken boekjaren
@@ -20,3 +19,23 @@ Platform Input Keuzes
 
 Losse investeringsideeen
 - Defensie leveranciers
+
+
+- Solvabiliteit, rentabiliteit, return on investment
+- Rentabiliteit = Winst/ geinvesteerd vermogen
+- Rendement = Opbrengst/ geinvesteerd bedrag
+- ROIC = NOPAT/ Invested Capital: NOPAT = Net Operating Profit After Tax (operationele winst na belasting)
+- Return on Investment = (Opbrengst - Investering)/ Investering
+- Dividend per aandeel niet al te hoog
+- Beloningen voor personeel
+
+
+
+DESTEMP analyse
+- Bedrijven die het nu goed doen: de waarde hebben maar door een crisis ineens onderuit gaan
+- Trump, Oorlog, AI, Natuur, Energie problematisch, Baby Boom
+
+
+Management: CV's, zitperiode,
+
+Eigen vermogen: Geplaatste kapitaal, Nominale waarde per aandeel, Aantal aandelen

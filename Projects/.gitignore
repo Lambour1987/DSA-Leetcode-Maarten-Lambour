@@ -1,0 +1,22 @@
+# 6-5-2026: dit zijn de bestanden die git bij committen en upload negeert want
+# deze worden aangemaakt bij runnen: Deze geldt voor meerdere projecten dus
+# we verplaatsen hem naar root
+
+# Build files (C++)
+*.exe
+*.obj
+*.pdb
+*.ilk
+*.ilk
+*.vcxproj.user
+
+# VS Code
+.vscode/
+
+# build output
+Debug/
+Release/
+
+# Python cache
+__pycache__/
+*.pyc

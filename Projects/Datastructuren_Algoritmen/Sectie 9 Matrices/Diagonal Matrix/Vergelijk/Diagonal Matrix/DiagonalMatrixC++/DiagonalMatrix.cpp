@@ -43,6 +43,9 @@ class Diagonal
             A = new int[n];
         }
     // Hier dus een destructor: dit wordt automatisch aangeroepen als object verdwijnt
+    // BELANGRIJK: Zoek op: rule of 5: als je besluit een Destructor te bouwen moet je ook de andere 4 overwogen hebben:
+    // destructor, copy constructor, copy assignment, move constructor, move assignment
+
         ~Diagonal()
         {
             // We deleten een array dus []A en niet 'A'
@@ -50,10 +53,26 @@ class Diagonal
         }
     // Member function declaraties/ Method Declaration in een class. (Forward Declarations meestal buiten de class)
     
-    void Set
-    int Get
-    void Display
-    int GetDimensions
+        // Dus een op een coördinaat een waarde invoegen
+        void Set
+        int Get
+        void Display
+        int GetDimensions
+
+    // Geen parameter array nodig want binnen class?
+    // x en y als coördinaten doorgeven
+    // BELANGRIJK: het gaat hier niet om een matrix maar om een 1D array. Die conceptueel een 2D (diagonaal) is
+    // We kunnen gewoon direct op de coordinaat
+    void Diagonal::Set(int x, int y, int waarde)
+    {
+
+    }
+        
+
+    void Diagonal::Get(int)
+
+
+
 }
 
 
