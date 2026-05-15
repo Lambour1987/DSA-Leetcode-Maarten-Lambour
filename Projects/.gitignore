@@ -3,6 +3,7 @@
 # we verplaatsen hem naar root
 
 # Build files (C++)
+*.o
 *.exe
 *.obj
 *.pdb
