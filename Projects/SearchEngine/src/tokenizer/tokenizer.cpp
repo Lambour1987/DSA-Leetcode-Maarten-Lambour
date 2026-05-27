@@ -66,7 +66,7 @@ vector<Token> tokenizeQuery(const string& input)
         // Anders als dit karakter een whitespace is(spatie, tab, newline etc)
         if(isspace(karakter))
         {
-            //En als current leeg is
+            //En als current niet leeg is
             if(!current.empty())
             {
                 //En als current gelijk is aan 'AND"

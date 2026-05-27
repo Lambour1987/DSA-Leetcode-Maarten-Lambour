@@ -1,5 +1,5 @@
 #include "search.h"
-#include "../parser/parser.h"
+#include "../fileLoader/fileLoader.h"
 
 #include <iostream>
 #include <string>
@@ -29,6 +29,9 @@ void search(const unordered_map<string,unordered_set<string>>& index, const stri
     // is iets langzamer. Nu: we maken pas een kopie als hem nodig hebben. Blijkbaar.
     string q = query;
     // char dus geen const en & nodig
+    // 18-5-2026: itt MultiSearch hier alleen 'tolower' nodig omdat het om 1 woord gaat'
+    // Bijvoorbeeld:
+    
     for(char& c:q)
     {
         c=tolower(c);
@@ -62,10 +65,20 @@ void search(const unordered_map<string,unordered_set<string>>& index, const stri
 // Maar we willen alleen waar Beide in voorkomen: Intersection (denk aan set, union, intersection, difference)
 
 // Functie searchMulti heeft als input de map-set index en de query. Als output niks
+// Bijvoorbeeld: De unordered_map<string, unordered_set<string>>&index:
+// "apple"  → {"a.txt", "b.txt"}
+// "banana" → {"b.txt"}
+// "orange" → {"a.txt"}
+// De const string&query
+// "apple banana orange"
 void multiSearch(const unordered_map<string, unordered_set<string>>&index, const string&query)
 {
     
     // Roep de functie tokenize met argurment query en sla op in een woordvector
+    // Bijvoorbeeld: 
+    // query = "apple banana orange"
+    // Tokenize: → split + lowercase + parsing
+    // Words: words = ["apple", "banana", "orange"]
     vector<string> words = tokenize(query);
     // Als woord is leeg dan retourneer
     if(words.empty())
@@ -73,6 +86,11 @@ void multiSearch(const unordered_map<string, unordered_set<string>>&index, const
         return;
     }
     // start met eerste woord (dat is a[0]) en sla het resultaat op in result: geef de waarde die hoort bij key hello
+    // Bijvoorbeeld:
+    // words[0] = "apple"
+    // index["apple"]
+    // "apple" → {"a.txt", "b.txt"}
+    // result = {"a.txt", "b.txt"}
     auto result = index.at(words[0]);
     // intersect met de rest: begin bij 1 en ga door tot einde (let op dit lijkt wel een beetje op LL maken)
     // BELANGRIJK: waarom niet int i =1 maar size_t=1? int werkt ook. maar size_t is correcter: is een unsigned
@@ -82,10 +100,17 @@ void multiSearch(const unordered_map<string, unordered_set<string>>&index, const
     for(size_t i=1; i<words.size(); i++)
     {
         //volgende woord in index opslaan in variabele nextSet
+        // Bijvoorbeeld
+        // words[i] = "banana"
+        // index["banana"]
+        // "banana" → {"b.txt", "c.txt"}
+        // nextSet = {"b.txt", "c.txt"}
         const auto& nextSet = index.at(words[i]);
         //maak een string set 'temp' aan.
         unordered_set<string> temp;
-        //Loop door iedere file heen uit resultaat
+        // Loop door iedere file heen uit resultaat:
+        // Bijvoorbeeld:
+        // result = {"a.txt", "b.txt"}
         for(const auto& file:result)
         {
             // Als de file in nextset zit? (gebruik Count)
@@ -100,6 +125,8 @@ void multiSearch(const unordered_map<string, unordered_set<string>>&index, const
     }
     
     // Doorloop iedere file in het resultaat en print resultaat.
+    // Bijvoorbeeld:
+    // result = {a.txt, b.txt}
     for(const auto& file: result)
     {
         cout<<file<<endl;

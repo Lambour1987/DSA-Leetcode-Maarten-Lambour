@@ -8,12 +8,12 @@
 #include <vector>
 #include <string>
 #include <unordered_map>
-#include "tokenizer.h"
+#include "../tokenizer/tokenizer.h"
 
 
-std::vector<int> evaluatePostfix(
+std::unordered_set<std::string> evaluatePostfix(
     const std::vector<Token>& postfix, 
     const std::unordered_map<std::string, 
-    std::vector<int>>&index);
+    std::unordered_set<std::string>>&index);
 
 

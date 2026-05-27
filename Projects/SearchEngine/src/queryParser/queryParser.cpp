@@ -10,11 +10,11 @@ using namespace std;
 // functie precedence met als input een referentie naar 'teken' die we niet wijzigen
 // en een output int van static: Static: Alleen zichtbaar binnen dit bestand en niet in andere
 // cpp files. Je kan er niet naar linken.
-static int precedence(const Token&teken)
+static int precedence(const Token&token)
 {
     // switch cases maken. case And return 2, or 1 anders 0. 
     // 'teken' komt uit het struct token (zie tokenizer.h)
-    switch (teken.type)
+    switch (token.type)
     {
         case TokenType::AND: return 2;
         case TokenType::OR: return 1;
@@ -23,10 +23,10 @@ static int precedence(const Token&teken)
 }
 
 // maak een statische functie isOperator met als input een referentie naar 'teken' die we niet wijzigen
-static bool isOperator(const Token &teken)
+static bool isOperator(const Token &token)
 {
     //retourneer teken.type als Tokentype AND of OR is
-    return teken.type == TokenType::AND || teken.type == TokenType::OR;
+    return token.type == TokenType::AND || token.type == TokenType::OR;
 }
 
 // Functie toPostfix met als input een referentie naar de vector tokens die we niet aan wijzigen en als output
@@ -38,14 +38,15 @@ vector<Token> toPostfix(const vector<Token>&tokens)
     // maak een stack van tokens operationStack
     stack<Token>operationStack;
     // voor iedere referentie die we niet veranderen naar teken in tokens
-    for(const auto&teken:tokens)
+    //27-5-2026: het woord 'teken' in 'token' verandert want het gaat hier om 'token' (PHRASE, WORD, AND, OR)
+    for(const auto&token:tokens)
     {
         //Als het teken geen Operator is
         //waarom geen teken.isOperator()? ofzo
-        if(!isOperator(teken))
+        if(!isOperator(token))
         {
             //voeg aan output vector het teken toe
-            output.push_back(teken);
+            output.push_back(token);
             //ga door;
             continue;
         }
@@ -58,7 +59,7 @@ vector<Token> toPostfix(const vector<Token>&tokens)
         && isOperator(operationStack.top())
         // En de top van de operationStack groter of gelijk is aan het huidige teken
         // "De waarde" van AND is hoger dan OR. Vandaar.
-        && precedence(operationStack.top())>= precedence(teken))
+        && precedence(operationStack.top())>= precedence(token))
         {
             //Voeg de top operationStack toe aan aan output
             output.push_back(operationStack.top());
@@ -67,7 +68,7 @@ vector<Token> toPostfix(const vector<Token>&tokens)
         }
         // Push op de operationstack het teken
         // Push je huidige teken er weer op
-        operationStack.push(teken);
+        operationStack.push(token);
     }
     // Zolang operationStack niet leeg is
     while(!operationStack.empty())

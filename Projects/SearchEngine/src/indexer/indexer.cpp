@@ -1,7 +1,7 @@
 //7-5-2026: 
 
 #include "indexer.h"
-#include "../parser/parser.h"
+#include "../fileLoader/fileLoader.h"
 
 //BELANGRIJK: hoewel deze libraries ook in indexer.h staan en zelfs meegenomen worden is het beter om
 //deze alsnog apart hier neer te zetten. Want dan kan je bestanden altijd afzonderlijk compilen.
@@ -25,16 +25,18 @@ namespace fs = std::filesystem;
 
 // Functie buildFrequencyMap die als input vraagt een referentie naar vector van strings 'words' 
 // en output een hashmap key: string, value: int
-// 7-5-2026: veranderde parameter van 'const vector<string&>words' naar huidige: vanwege Single Responibility
-//
-unordered_map<string, int> buildFrequencyMap(const string& text)
+// 7-5-2026: veranderde parameter van 'const vector<string>&words' naar huidige: vanwege Single Responibility
+// 19-5-2026: Weer terug van unordered_map<string, int> buildFrequencyMap(const string& text) naar deze. Blijkbaar
+// toch niet single responsibility?
+unordered_map<string, int> buildFrequencyMap(const vector<string>&words)
 {
     //Declareer een hashmap frequentie
     unordered_map<string,int>frequentie;
 
     // 7-5-2026: Nieuw: ipv functie woorden als parameter mee kreeg, krijgt hij nu text mee.
     // en met die text laat hij zelf woorden maken door tokenize op te roepen.
-    vector<string>words = tokenize(text);
+    // 19-5-2026: dit kan dan weer weg
+    // vector<string>words = tokenize(text);
 
     //For each word in words tel hoeveelheid woorden (?)
     for(const auto& word:words)

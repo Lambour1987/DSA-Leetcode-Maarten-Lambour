@@ -16,4 +16,4 @@ using invertedIndex = std::unordered_map<std::string, std::unordered_set<std::st
 
 invertedIndex buildInvertedIndex(const std::vector<fs::path>&files);
 
-std::unordered_map<std::string, int> buildFrequencyMap(const std::string& text);
+std::unordered_map<std::string, int> buildFrequencyMap(const std::vector<std::string>&words);

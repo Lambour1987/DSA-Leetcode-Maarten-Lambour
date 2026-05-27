@@ -3,10 +3,10 @@
 // 7-5-2026: Delen gekopieerd naar losse bestanden
 
 //7-5-2026: erbij gezet: parser.h. Dus main weet dan dat hij de parser moet gebruiken.
-#include "../parser/parser.h"
+#include "../fileLoader/fileLoader.h"
 #include "../indexer/indexer.h"
 #include "../search/search.h"
-#include "../queryEvaluator/query_evaluator.h"
+#include "../queryEvaluator/queryEvaluator.h"
 
 //t.b.v testen
 #include "../tokenizer/tokenizer.h"
@@ -41,13 +41,14 @@ namespace fs = std::filesystem;
 int main()
 {
     // Toegevoegd: extra check
+    // 19-5-2026: Geef aan in welke map mijn programma draait.
     cout << fs::current_path() << endl;  
 
-    //maak een variabele folder aan: '..': ga 1 map omhoog.
+    // maak een variabele folder aan: '..': ga 1 map omhoog.
     string folder = "test_data";
 
     // 1) Check folder eerst
-    // Als folder niet bestaat, geef melding
+    // Bekijk of er in het huidige pad een bestand genaamd 'test_data" bestaat.
     if(!fs::exists(folder))
     {
         cout <<"Folder does not exist! "<<endl;
@@ -73,14 +74,14 @@ int main()
 
         //3.3) Roep de buildFrequencyMap aan en geef als argument words mee en sla het resultaat op in freq.
         //7-5-2026: deze weggehaald vanwege: 
-        auto frequentie = buildFrequencyMap(content);
+        //19-5-2026: Nu weer aangepast. Was auto frequentie = buildFrequencyMap(content);
+        auto frequentie = buildFrequencyMap(words);
 
         //6) Print ieder paar in de Hashmap (woord, aantal): first en second.
         for(const auto& pair:frequentie)
         {
         cout<<pair.first <<" --> "<< pair.second<<endl;
         }
-
         
     }
     auto index = buildInvertedIndex(files);
@@ -92,7 +93,7 @@ int main()
     
     //13-5-2026: Test voor queryparser: 
     // Kan volgens mij weg
-    vector<Token> tokens = tokenizeQuery("apple AND banana OR orange");
+    vector<Token> tokens = tokenizeQuery("hello AND amsterdam");
 
     vector<Token> postfix = toPostfix(tokens);
 
@@ -100,5 +101,13 @@ int main()
     {
         cout << token.value <<" ";
     }
-  
+    
+    auto result = evaluatePostfix(postfix, index);
+
+    cout << "RESULT SIZE: " << result.size() << endl;
+
+    for (const auto& file : result)
+    {
+        cout << file << endl;
+    }
 }
