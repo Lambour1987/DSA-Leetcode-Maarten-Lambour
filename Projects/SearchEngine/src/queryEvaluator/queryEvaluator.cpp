@@ -23,7 +23,16 @@ unordered_set<string> evaluatePostfix(const vector<Token>& postfix, const unorde
     // maak een stack van vectoren van integers (noem hem stack): stack<vector<int>> St.
     // 18-5-2026: Dit gewijzigd naar een unordered_set<string>
     stack<unordered_set<string>> St;
+
+    //28-5-2026: Unordered_set van strings voor alle files
+    unordered_set<string> allFiles;
     
+    //28-5-2026: Vul dit deze set result. Voor alle woorden, files in de index
+    for(const auto& [word, files]:index)
+    {
+        allFiles.insert(files.begin(),files.end());
+    }
+
     // voor elk postfixToken in in postfix (noem even anders want we hebben al een 'token')
     // deze variabele heeft daar niets mee te maken
     for(const auto& postfixToken:postfix)
@@ -75,7 +84,8 @@ unordered_set<string> evaluatePostfix(const vector<Token>& postfix, const unorde
             {
                 // Zoek of doc voorkomt in de vector right. Niet gevonden. Is iterator einde.
                 // 18-5-2026: Gewijzigd van (find(right.begin(),right.end(),doc) != right.end()) naar:
-                if(right.count(doc))
+                // 28-5-2026: weer teruggewijzigd van if(right.count(doc)) naar:
+                if (right.find(doc) != right.end())
                 {
                 // Voeg doc toe aan het resultaat
                 //
@@ -107,6 +117,35 @@ unordered_set<string> evaluatePostfix(const vector<Token>& postfix, const unorde
             // resultaat toevoegen aan stack
             St.push(result);
         }
+        else if (postfixToken.type == TokenType::NOT)
+        {
+            //28-5-2026: Als stack leeg is return {}
+            if(St.empty())
+            {
+                return {};
+            }
+            //28-5-26: Voeg stacktop toe aan auto A, vervolges pop je van de stack
+            auto A = St.top();
+            St.pop();
+
+            //Initialiseer een set<strings> result
+            unordered_set<string> result;
+            //Voor iedere file in alle Files
+            for(const auto& file:allFiles)
+            {
+                //Zoek in A naar de file. Als NIET gevonden
+                //BELANGRIJK: Dus A.end() betekent als niet gevonden.
+                if(A.find(file) == A.end())
+                {
+                    //Voeg file toe aan resultaat
+                    result.insert(file);
+                }
+            }
+        
+            // Voeg resultaat toe aan stack.
+            St.push(result);
+        }
+        
     }
     // Return de stacktop
     if (St.empty())

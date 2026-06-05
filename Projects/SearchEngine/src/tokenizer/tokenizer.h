@@ -12,7 +12,8 @@ enum class TokenType
     PHRASE,
     AND,
     OR,
-    COMMAND
+    COMMAND,
+    NOT,
 };
 
 struct Token
@@ -21,5 +22,6 @@ struct Token
     std::string value;
 };
 
+//4-6-2026: Dus let op: hier sluiten we de functie dus wel af met ';'. In het cpp bestand niet.
 std::vector<Token> tokenizeQuery(const std::string& input);
 

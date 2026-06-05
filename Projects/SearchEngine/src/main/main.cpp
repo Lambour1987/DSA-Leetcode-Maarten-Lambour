@@ -7,10 +7,13 @@
 #include "../indexer/indexer.h"
 #include "../search/search.h"
 #include "../queryEvaluator/queryEvaluator.h"
+#include "../queryParser/ASTBuilder.h"
+#include "../types/AST.h"
 
 //t.b.v testen
 #include "../tokenizer/tokenizer.h"
 #include "../queryParser/queryParser.h"
+#include "../queryEvaluator/ASTEvaluator.h"
 
 #include <iostream>
 // stdlib overbodig
@@ -33,6 +36,28 @@ using namespace std;
 // ga std::filesystem voortaan korter schrijven als fs (alias)
 namespace fs = std::filesystem;
 
+// 4-6-2026: Hier toegevoegd: main.cpp
+// functie printAST met als parameter een pointer naar een ASTNode en default parameter diepte van 0.
+void printAST(ASTNode* node, int depth = 0)
+{
+    // Als er geen node is retourneer 
+    if(!node) return;
+
+    // Voor integer 0 tot integer kleiner dan diepte, verhoog i.
+    for(int i=0; i<depth;i++)
+    {
+        cout<<" ";
+    }
+    // Zet de waarde van het node type (ik denk enum) om naar een integer en print de waarde.
+    // Dat wordt dan TERM = 0, AND =1, OR =2, NOT=3
+    // (dit is dus omzetten en niet zoals 'auto' afleiden van het datatype)
+    cout << static_cast<int>(node->type) << endl;
+    // Recursief printAST oproepen op linkernode
+    printAST(node->left, depth + 1);
+    // Recursief printAST oproepen op rechternode
+    printAST(node->right, depth + 1);
+}
+
 
 // ============================
 //         == MAIN ==
@@ -45,13 +70,17 @@ int main()
     cout << fs::current_path() << endl;  
 
     // maak een variabele folder aan: '..': ga 1 map omhoog.
-    string folder = "test_data";
-
+    // 28-5-2026: gewijzigd van string folder = "test_data"; naar:
+    // 4-6-2026: gewijzigd van string folder = "src/test_data"; naar:
+    // fs::path folder = fs::current_path()/ "test_data";
+    // 4-6-2026: weer gewijzigd naar
+    string folder = "./src/test_data/";
+    
     // 1) Check folder eerst
     // Bekijk of er in het huidige pad een bestand genaamd 'test_data" bestaat.
     if(!fs::exists(folder))
     {
-        cout <<"Folder does not exist! "<<endl;
+        cout <<"ML: Eigen bericht. Dus app start maar Folder does not exist! "<<endl;
         return 1;
     }
 
@@ -93,21 +122,51 @@ int main()
     
     //13-5-2026: Test voor queryparser: 
     // Kan volgens mij weg
-    vector<Token> tokens = tokenizeQuery("hello AND amsterdam");
+    //4-6-2026: we vervangen onze query van vector<Token> tokens = tokenizeQuery("hello AND amsterdam"); naar;
+    vector<Token> tokens = tokenizeQuery("hello OR random AND project");
 
-    vector<Token> postfix = toPostfix(tokens);
+    //4-6-2026: direct nog een test na tokenizeQuery("NOT hello");
+    for(const auto& token : tokens)
+{
+    cout << "TYPE=" << static_cast<int>(token.type)
+         << " VALUE=" << token.value << endl;
+}
 
-    for(const auto& token : postfix)
-    {
-        cout << token.value <<" ";
-    }
-    
-    auto result = evaluatePostfix(postfix, index);
+    //4-6-2026: Test voor AST Builder oproepen: deze komt dus in plaats van toPostfix
+    ASTBuilder builder;
+    ASTNode* root = builder.build(tokens);
 
-    cout << "RESULT SIZE: " << result.size() << endl;
+    //4-6-2026: Dit er later nog bijgezet
+    //Roep functie evaluateAST op met parameters root en index en sla op in resultaat (auto)
+    auto ASTResult = evaluateAST(root,index);
 
-    for (const auto& file : result)
+    // 4-6-2026: test toevoegen
+
+    cout << "AST RESULT SIZE: " << ASTResult.size() << endl;
+
+    for(const auto& file : ASTResult)
     {
         cout << file << endl;
     }
-}
+
+    printAST(root);
+};
+// 4-6-2026: toPostfix etc weghalen. want AST komt hiervoor in de plaats. Mogelijk om dit later
+// nog erbij te voegen:
+
+    // vector<Token> postfix = toPostfix(tokens);
+
+    // for(const auto& token : postfix)
+    // {
+    //     cout << token.value <<" ";
+    // }
+    
+//     auto PostFixResult = evaluatePostfix(postfix, index);
+
+//     cout << "RESULT SIZE: " << PostFixResult.size() << endl;
+
+//     for(const auto& file : PostFixResult)
+//     {
+//         cout << file << endl;
+//     }
+// }

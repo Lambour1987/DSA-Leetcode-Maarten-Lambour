@@ -82,6 +82,11 @@ vector<Token> tokenizeQuery(const string& input)
                     tokens.push_back({TokenType::OR, "OR"});
                     //Anders
                 }
+                //4-6-2026: NOT is nieuw.
+                else if(current=="NOT")
+                {
+                    tokens.push_back({TokenType::NOT, "NOT"});
+                }
                 else
                 {
                     //Voeg WORD toe aan tokens met type current

@@ -77,3 +77,20 @@ Document
 ✅ multi search
 ✅ ranking basis
 ✅ SRP-refactor succesvol uitgevoerd
+
+28-5-2026:
+Wat er nog in verwerken:
+
+
+- AND NOT en XOR
+- Koppeling met SQL
+- Python visualisatie
+- AI Agent?
+- CI/CD pipeline? of testen of is dat hetzelfde?
+- Design Patterns toepassen waar nodig en handig
+- System Design Toepassen
+- DSA meer toepassen
+- MultiThreading Meer toepassen
+- Website/ visualisatie
+
+28-5-2026: 21:45uur: alles werkt en de NOT zojuist toegevoegd. Door met nieuwe chat die alles weet.
