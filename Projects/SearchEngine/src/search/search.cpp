@@ -17,7 +17,7 @@ using namespace std;
 // Zoekfunctie search met als input(map-set genaamd index en een query). Output void.
 // Denk bij void: soms een printfunctie maar met referenties werken we gewoon direct in de variabele
 // de we hebben opgeroepen. Dit is dus geen lineair search of binary search
-void search(const unordered_map<string,unordered_set<string>>& index, const string&query)
+void search(const unordered_map<string,unordered_map<string, vector<int>>>& index, const string&query)
 {
     //Zet query naar lowercase (consistent met tokenize)
     //Voor iedere letter in de query moeten we deze naar lowercase zetten
@@ -51,7 +51,7 @@ void search(const unordered_map<string,unordered_set<string>>& index, const stri
     // Dit zou ook binnen de if statement kunnen? In dit geval betekent het precies hetzelfde?
     // Verschil: eerst if statement. Als gevonden dan returnen. Of. Hij is niet- niet gevonden.
     // Dus wel gevonden. Dus door met volgende regel
-    for(const auto& file:index.at(q))
+    for(const auto& [file,positions]:index.at(q))
     {
         cout<<file<<endl;
     }
@@ -71,7 +71,7 @@ void search(const unordered_map<string,unordered_set<string>>& index, const stri
 // "orange" → {"a.txt"}
 // De const string&query
 // "apple banana orange"
-void multiSearch(const unordered_map<string, unordered_set<string>>&index, const string&query)
+void multiSearch(const unordered_map<string, unordered_map<string, vector<int>>>&index, const string&query)
 {
     
     // Roep de functie tokenize met argurment query en sla op in een woordvector
@@ -105,19 +105,21 @@ void multiSearch(const unordered_map<string, unordered_set<string>>&index, const
         // index["banana"]
         // "banana" → {"b.txt", "c.txt"}
         // nextSet = {"b.txt", "c.txt"}
-        const auto& nextSet = index.at(words[i]);
+        const auto& nextMap = index.at(words[i]);
         //maak een string set 'temp' aan.
-        unordered_set<string> temp;
+        //17-6-2026: ook gewijzigd
+        unordered_map<string, vector<int>> temp;
         // Loop door iedere file heen uit resultaat:
         // Bijvoorbeeld:
         // result = {"a.txt", "b.txt"}
-        for(const auto& file:result)
+        for(const auto& [file, positions]:result)
         {
             // Als de file in nextset zit? (gebruik Count)
-            if(nextSet.count(file))
+            if(nextMap.count(file))
             {
                 //voeg de file toe aan tijdelijke set
-                temp.insert(file);
+                //17-6-2026: aangepast temp.insert(file);
+                temp[file] = positions;
             }
         // sla tijdelijk resultaat op in result
         }
@@ -127,7 +129,7 @@ void multiSearch(const unordered_map<string, unordered_set<string>>&index, const
     // Doorloop iedere file in het resultaat en print resultaat.
     // Bijvoorbeeld:
     // result = {a.txt, b.txt}
-    for(const auto& file: result)
+    for(const auto& [file,positions]: result)
     {
         cout<<file<<endl;
     }
@@ -140,7 +142,7 @@ void multiSearch(const unordered_map<string, unordered_set<string>>&index, const
 // Per file geven we een score. Woord komt 1x voor +1, 
 
 // Functie RankedSearch(map-set: index en query) en void output
-void rankedSearch(const unordered_map<string,unordered_set<string>>&index, const string&query)
+void rankedSearch(const unordered_map<string,unordered_map<string, vector<int>>>&index, const string&query)
 {
     // Roep tokenize functie aan(input is query) en sla resultaat op in words
     // We hebben bijv als query: 'hello bye'. We roepen tokenize functie op en die geeft 
@@ -153,24 +155,29 @@ void rankedSearch(const unordered_map<string,unordered_set<string>>&index, const
     for(const auto& word:words)
     {
         //zoek woord op in index. Als gevonden ga door. zoek in volledige index (na einde)
-        if(index.find(word)==index.end())
+        //17-6-2026: gewijzigd van if(index.find(word)==index.end()) naar
+        if(!index.count(word))
         {
             continue;
         }
         // voor iedere file op de positie word van de index
         // dus niet: for(const auto&file:word[index])
-        for(const auto&file:index.at(word))
+        for(const auto&[file,positions]:index.at(word))
         {
             //Verhoog de score van die file
-            score[file]++;
+            // gewijzigd van core[file]++; naar
+            //17-6-2026 gewijzigd van score[file] +=positions.size(); // of+1 naar
+            score[file] +=1;
         }
     }
     //maak een vector van paren (string, int) aan 'ranked'
-    vector<pair<string, int>> ranked;
+    //17-6-2026: gewzijgigd van vector<pair<string, int>> ranked; naar
+    vector<pair<string, int>> ranked(score.begin(),score.end());
     //voor ieder paar in de score
-    for(const auto&[file,s]: score)
+    //17-6-2026: weggehaald
+    //for(const auto&[file,s]: score)
         // Voeg paar (file, s) toe aan de vector van paren ranked
-        ranked.push_back({file, s});
+        //ranked.push_back({file, s});
 
     // Sorteer rankden van begin tot eind, gebruik een lambda (inline) functie
     // lambda [capture](parameters) -> return type { body }. Hier geen capture
@@ -180,7 +187,8 @@ void rankedSearch(const unordered_map<string,unordered_set<string>>&index, const
 
     sort(ranked.begin(), ranked.end(),
     //capture en daarna tussen haakjes de parameters
-    [](const auto& a, const auto&b)
+    // 17-6-2026: gewijzigd van [](const auto& a, const auto&b) naar
+    [](auto&a, auto&b)
     {
         return a.second>b.second;
     });

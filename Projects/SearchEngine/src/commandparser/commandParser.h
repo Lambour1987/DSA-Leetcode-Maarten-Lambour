@@ -21,8 +21,8 @@ class CommandParser
 {
     public:
         //start REPL loop: functie run met als parameters een map (string,set-> string) genaamd index.
-        void run(const std::unordered_map<std::string,std::unordered_set<std::string>>&index);
-        void initCommands(const std::unordered_map<std::string, std::unordered_set<std::string>>& index);
+        void run(const std::unordered_map<std::string,std::unordered_map<std::string,std::vector<int>>>&index);
+        void initCommands(const std::unordered_map<std::string, std::unordered_map<std::string, std::vector<int>>>& index);
 
     private:
         // 11-5-2026: Maak een hashmap met als key een string en value een functie (value is dus een functie)

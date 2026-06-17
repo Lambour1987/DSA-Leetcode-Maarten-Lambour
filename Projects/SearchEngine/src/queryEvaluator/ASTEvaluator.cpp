@@ -2,20 +2,21 @@
 
 #include <iostream>
 #include <unordered_set>
+#include <unordered_map>
 
 // Voeg ASTEvaluator.h toe 
 #include "ASTEvaluator.h"
 // begin weer met de functie evaluateAST
 // (parameters node en index). Als output een set van strings.
 // gebruik weer die alias Inverted index
-std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& index)
-
+std::unordered_map<std::string, int> evaluateAST(ASTNode* node, const InvertedIndex& index)
 {
     // Als er geen node is return .
     // Alternatief: if(!node)
     if(node == nullptr)
     {
-        return {};
+        //17-6-2026: van return {}; naar
+        return std::unordered_map<std::string,int>{};
     }
 
     // We werken hier met if statements: dat is hier logisch omdat je werkt met een node->type
@@ -49,7 +50,8 @@ std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& 
         }
 
         //16-6-2026: omdat we de index hebben gewijzigd moeten we e.e.a. aanpassen
-        std::unordered_set<std::string>result;
+        //17-6-2026: dus dit wordt ook een map
+        std::unordered_map<std::string, int>result;
 
             // weggehaald:
             // std::cout << "DOCS FOR " << node->value << ": ";
@@ -68,8 +70,10 @@ std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& 
             // return it->second;
             std::cout<<std::endl;
 
-            result.insert(doc);
-        }
+            //17-6-2026: van result.insert(doc); naar: (omdat we map ipv set gebruiken)
+            //17-6-2026 nu gewijzigd naar result[doc] += positions.size();
+            result[doc] = 1;
+        }   
         // Return leeg
         // 16-6-2026: moet zijn return resultaat
         return result;
@@ -86,14 +90,18 @@ std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& 
         //roep evaluateAST functie op met parameter rechternode en index en sla op in right
         auto right = evaluateAST(node->right, index);
         //maak een set van strings genaamd resultaat
-        std::unordered_set<std::string> result;
+        //17-6-2026: wordt een map: std::unordered_set<std::string> result;
+        std::unordered_map<std::string,int> result;
         //voor ieder document in left
-        for(const auto&doc:left)
+        //17-6-2026: logica aangepast t.b.v. map. was: for(const auto&doc:left)
+        for(const auto&[doc, score]:left)
         {
             // Als document doc ook in de rechter verzameling zit, voeg het dan toe aan het resultaat.
+            // 17-6-2026: ook aangepast if(right.count(doc)) 
             if(right.count(doc)) 
             {
-                result.insert(doc);
+                //17-6-2026: gewijzigd van result[doc] = left[doc]+right[doc]; naar
+                result[doc] = 1;
             }
         }
         // retourneer resultaat
@@ -110,7 +118,12 @@ std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& 
         // roep evaluateAST functie op met parameter rechternode en index en sla op in right
         auto right = evaluateAST(node->right, index);
         // alle elementen uit van de rechterset in de linkerset
-        left.insert(right.begin(), right.end());
+        //17-6-2026: Dit is aangepast naar een forloop: left.insert(right.begin(), right.end());
+        for(const auto& [doc, score]:right)
+        {
+            //17-6-2026: gewzijgid van left[doc] += score; naar
+            left[doc] = 1;
+        }
         // returneer links
         return left;
     }
@@ -125,7 +138,8 @@ std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& 
         // NOT altijd maar 1 branch heeft, namelijk zijn tegenovergestelde.
         auto child = evaluateAST(node->right, index);
         // maak een set van strings voor allDocs
-        std::unordered_set<std::string> allDocs;
+        //17-6-2026: van std::unordered_set<std::string> allDocs; aangepast naar:
+        std::unordered_map<std::string, int> allDocs;
         // voor linker en rechterdoc in de index
         for(const auto& [word,docs]:index)
         {
@@ -133,14 +147,18 @@ std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& 
             //4-6-2026: Was eerst: allDocs.insert(allDocs.begin(), allDocs.end()); gewijzigd naar:
             for(const auto&doc: docs)
             {
-                allDocs.insert(doc.first);
+                //17-6-2026: van allDocs.insert(doc.first);
+                //17-6-2026: van allDocs[doc.first] = 0;
+                allDocs[doc.first] = 1;
+
             }
         }
         // voor alle documenten in child
         for(const auto& doc: child)
         {
             // Verwijder alle documenten uit allDocs
-            allDocs.erase(doc);
+            //17-6-2026: gewzijgd van allDocs.erase(doc);
+            allDocs.erase(doc.first);
         }
         // retourneer allDocs
         return allDocs;

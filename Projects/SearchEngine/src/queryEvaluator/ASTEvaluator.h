@@ -18,6 +18,6 @@ using InvertedIndex = std::unordered_map<std::string, std::unordered_map<std::st
 
 // maak een functie evaluateAST met als parameters een pointer node naar een ASTNode, en
 // de index (map incl set: maar gebruik de alias). Als output een set van strings
-std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& index);
+std::unordered_map<std::string,int> evaluateAST(ASTNode* node, const InvertedIndex& index);
 
 

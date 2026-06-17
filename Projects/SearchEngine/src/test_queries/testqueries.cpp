@@ -92,7 +92,8 @@ void runQueryTests(const string& filename, const unordered_map<string, unordered
         // ===========================
 
         // maak een set van strings genaamd expected aan
-        unordered_set<string> expected;
+        // 17-6-2026: Gewzijgt naar een map:  unordered_set<string> expected;
+        unordered_map<string, int> expected;
         // maak een stringstream aan van de string expectedPart en noem deze ss:
         // je verandert dan een string in iets dat zich gedraagt als een input stream.
         // Zonder stringstream: zelf splitten, indexen zoeken, substr gebruiken. Met stringstream:
@@ -105,7 +106,8 @@ void runQueryTests(const string& filename, const unordered_map<string, unordered
         while(ss>>doc)
         {
             // insert doc in expected
-            expected.insert(doc);
+            //17-6-2026 expected.insert(doc); Wordt nu
+            expected[doc] = 1;
         }
 
         // ===========================
@@ -162,15 +164,17 @@ void runQueryTests(const string& filename, const unordered_map<string, unordered
                 for(const auto& d: expected)
                 {
                 // cout Actual
-                    cout << d << " ";
+                    //17-6-2026 cout << d << " "; wordt
+                    cout<<d.first<<" "<<d.second;
                 }
 
                 cout<< "\nATUAL: ";
                 // voor alle d in actual print d
                 for(auto& d: actual) 
                 {
-                    cout<< d << " ";
-                
+                    //17-6-2026: aangepast van cout<< d << " ";
+                    cout<< d.first <<"->" << d.second;
+                                    
                 }
 
                 cout << endl;

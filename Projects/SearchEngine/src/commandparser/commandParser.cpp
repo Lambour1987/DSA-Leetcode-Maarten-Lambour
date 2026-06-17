@@ -45,7 +45,7 @@ using namespace std;
 // }
 
 // 12-5-2026: Run en initCommands Gesplitst: Hier initCommands
-void CommandParser::initCommands(const unordered_map<string, unordered_set<string>>&index)
+void CommandParser::initCommands(const unordered_map<string, unordered_map<string, vector<int>>>&index)
 {
     // Beoordeel of de string begint met "Search"
     // zoek in de input het woord "search". zoek substring maar begin exact op positie 0 (prefix check)
@@ -107,7 +107,7 @@ void CommandParser::initCommands(const unordered_map<string, unordered_set<strin
 // Dus nu een class: roep run op uit de class commandparser (ik zou zeggen zonder using namespace std)
 // 12-5-2026: Run structuur verbeterd.
 // 12-5-2026: Run en initCommands Gesplitst: Dus nu de class in commandParser.h veranderen
-void CommandParser::run(const unordered_map<string, unordered_set<string>>&index)
+void CommandParser::run(const unordered_map<string, unordered_map<string, vector<int>>>&index)
 {
     // Hier roepen we nu dus initcommands op
     initCommands(index);
