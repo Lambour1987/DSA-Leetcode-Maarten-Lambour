@@ -12,7 +12,7 @@
 
 namespace fs = std::filesystem;
 
-using invertedIndex = std::unordered_map<std::string, std::unordered_set<std::string>>;
+using invertedIndex = std::unordered_map<std::string, std::unordered_map<std::string, std::vector<int>>>;
 
 invertedIndex buildInvertedIndex(const std::vector<fs::path>&files);
 

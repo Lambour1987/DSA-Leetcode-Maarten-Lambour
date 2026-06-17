@@ -39,6 +39,11 @@ vector<fs::path> getFiles(const string& folder)
     // mappen, snelkoppelingen en systeembestanden
         if(entry.is_regular_file())
         {
+            //15-6-2026: bijgevoegd:
+            if(entry.path().filename() == "testqueries.txt")
+            {
+                continue;
+            }
             // voeg pad toe aan vector getFiles
             files.push_back(entry.path());
         }

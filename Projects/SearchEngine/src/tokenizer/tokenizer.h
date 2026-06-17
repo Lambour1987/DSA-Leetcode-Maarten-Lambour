@@ -14,6 +14,9 @@ enum class TokenType
     OR,
     COMMAND,
     NOT,
+    //7-6-2026: Toegevoegd: parentheses
+    LPAREN,
+    RPAREN,
 };
 
 struct Token

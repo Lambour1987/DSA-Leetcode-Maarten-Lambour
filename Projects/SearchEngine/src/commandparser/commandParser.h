@@ -13,6 +13,10 @@
 // en stateless zijn. De Commandparser beheert een interactieflow: blijft draaien, leest input,
 // beslist wat er geberut, roept functies aan: gedrag over tijd, niet 1 losse berekening.
 
+//15-6-2026: de functie 'trim' zat nog niet in de header: dat hoeft niet want alleen in header zetten: functie declaraties,
+// class definities, templetlates, inline functions. 
+// En... je hoeft denk ik ook geen geimporteerde functies in je header te zetten.
+
 class CommandParser
 {
     public:

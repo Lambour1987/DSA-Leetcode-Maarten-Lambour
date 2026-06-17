@@ -11,9 +11,21 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <filesystem>
+//9-6-2026: Toegevoegd maar kan weg
+#include <algorithm>
+#include <cctype>
+#include <iostream>
 
 using namespace std;
 namespace fs = std::filesystem;
+
+//9-6-2026: Nieuwe test toegevoegd
+string cleanString(string s)
+{
+    while(!s.empty() && isspace(s.front())) s.erase(s.begin());
+    while(!s.empty() && isspace(s.back())) s.pop_back();
+    return s;
+}
 
 
 // ============================
@@ -60,14 +72,15 @@ unordered_map<string, int> buildFrequencyMap(const vector<string>&words)
 // en teruggeeft een hashmap met key: string en value een set van strings. Dus tellen hoe vaak die voorkomt? Nee!
 // We slaan op in welke files een woord voorkomt
 // Een hashset heeft net als een map ook een key en value maar key is index? maar hier dus string (eerste deel van unordered_map?)
-unordered_map<string, unordered_set<string>> buildInvertedIndex(const vector<fs::path>&files)
+unordered_map<string, unordered_map<string, vector<int>>> buildInvertedIndex(const vector<fs::path>&files)
 {
     //maak dus een map met key(string) en value (set van strings) genaamd index
     //Het is dus een map met key: string en een verzameling van strings (bestandsnamen): 
     // hello → {"a.txt", "b.txt"}
     // world → {"a.txt"} 
 
-    unordered_map<string,unordered_set<string>> index;
+    //16-6-2026: aangepast t.b.v. posities
+    unordered_map<string,unordered_map<string, vector<int>>> index;
     //loop door iedere file heen
     for(const auto& file:files)
     {
@@ -76,11 +89,33 @@ unordered_map<string, unordered_set<string>> buildInvertedIndex(const vector<fs:
         //Roep de functie tokenize op (arg content) en sla het resultaat op in words
         auto words = tokenize(content);
         //Loop door vector van woorden heen heen
+
+        //16-6-2026: toegevoegd
+        string doc = file.filename().string();
+
+        //9-6-2026: toegevoegd:
+         std::cout << "DOC: [" << file.filename().string() << "] size="
+              << file.filename().string().size() << std::endl;
+
+
+        int pos = 0;
+
         for(const auto& word:words)
         //voeg in de map-set index de filename toe en a aan de set van het woord 'word'
         {
-            index[word].insert(file.filename().string());
+            // index[word].insert(file.filename().string());
             // Werd eerst als correctie aangeboden. Blijkt toch weer een bug: index.at(word).insert(file.filename().string());
+            // 9-6-2026: Opnieuw toegevoegd: cleanstring
+            // en weer weggehaald: index[word].insert(cleanString(file.filename().string()));
+    
+            std::cout << "INDEX WORD RAW: [" << word << "] size=" << word.size() << std::endl;
+            //index.at(word).insert(file.filename().string());
+            // 9-6-2026 vervangen door: Dus ipv index.at(word) wordt het index[word]
+            // Dit is blijkbaar een verschil
+            //16-6-2026: aangepast van index[word].insert(file.filename().string()); naar
+            index[word][doc].push_back(pos);
+            pos++;
+
         }
 
     }

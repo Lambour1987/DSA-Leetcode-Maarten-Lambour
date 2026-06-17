@@ -3,6 +3,7 @@
 
 // Gebruik de headerfile "commandparser.h"
 #include "commandparser.h"
+#include "../utils/StringUtils.h"
 
 // Omdat we binnen deze cpp ook search, MultiSearch en Ranked gebruiken
 // moeten we de mapstructuur geven: allen staan binnen search.
@@ -25,22 +26,23 @@ using namespace std;
 
 // helperfunctie: string trimmen:
 
-//functie trim met een input string en output ook een string
-string trim(const string& str)
-{
-    // functie find_first_not_of oproepen op string. Sla resultaat op in start
-    // Met deze functie zoeken we de eerste string op die geen spatie of tab is
-    // Dus '     hello' wordt start  = 5;
-    // size_t: int kan ook maar STL werkt met size_t
-    // let op:" spatie en dan \t": Dat is zoeken naar spaties en tabs.
-    size_t start = str.find_first_not_of(" \t");
+//15-6-2026: dit naar een utilityfunctie verplaatst
+// //functie trim met een input string en output ook een string
+// string trim(const string& str)
+// {
+//     // functie find_first_not_of oproepen op string. Sla resultaat op in start
+//     // Met deze functie zoeken we de eerste string op die geen spatie of tab is
+//     // Dus '     hello' wordt start  = 5;
+//     // size_t: int kan ook maar STL werkt met size_t
+//     // let op:" spatie en dan \t": Dat is zoeken naar spaties en tabs.
+//     size_t start = str.find_first_not_of(" \t");
 
-    //retourneer ternary operator: if statement. Als start niet gevonden is. Return "".
-    // Anders retourneer een substring. 
-    // we npos: no position.
-    return(start == string::npos)?"":str.substr(start) ;
+//     //retourneer ternary operator: if statement. Als start niet gevonden is. Return "".
+//     // Anders retourneer een substring. 
+//     // we npos: no position.
+//     return(start == string::npos)?"":str.substr(start) ;
 
-}
+// }
 
 // 12-5-2026: Run en initCommands Gesplitst: Hier initCommands
 void CommandParser::initCommands(const unordered_map<string, unordered_set<string>>&index)

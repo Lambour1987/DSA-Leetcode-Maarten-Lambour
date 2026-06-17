@@ -29,3 +29,6 @@ private:
     void applyOperator( std::stack<ASTNode*>&nodes, std::stack<TokenType>& ops);
 };
 
+// 14-6-2026: functie bestaat ook buiten de class
+// bedoelt voor de test?
+void printAST(ASTNode* node);

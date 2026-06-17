@@ -49,6 +49,14 @@ void ASTBuilder::applyOperator(
     TokenType op = ops.top();
     // haal vervolgens de top van de stack eraf
     ops.pop();
+
+    //8-6-2026 Toegevoegd
+    // Wen weer weggehaald
+    // if(op == TokenType::LPAREN)
+    // {
+    //     return;
+    // }
+
     // ===== NOT (unary opeartor) =====
     // Als de variabele op gelijk is aan NOT (van class TokenType)
     if(op == TokenType::NOT)
@@ -145,12 +153,39 @@ ASTNode* ASTBuilder::build(const std::vector<Token>& tokens)
             // push de node op stack nodes
             nodes.push(node);
         }
+        // 8-6-2026: Erbij gezet
+        // ====  2. LPAREN =====
+        //
+        else if(token.type == TokenType::LPAREN)
+        {
+            ops.push(token.type);
+        }
+
         // ===== NOT =====
         // anders als tokentype gelijk is aan NOT
         else if (token.type==TokenType::NOT)
         {
         // Push dan NOT op de stack 'ops'
-            ops.push(TokenType::NOT);
+        // 8-6-2026: Dit wegghaald: en weer neergezet: ops.push(TokenType::NOT);
+        ops.push(TokenType::NOT);
+        //Dit weer weggehaald: applyOperator(nodes, ops);
+
+        }
+        // Erbij gezet en wee rweggehaald
+        // ===== RPAREN ====
+        // RPAREN: Tekst er nog bij schrijven
+        else if(token.type == TokenType::RPAREN)
+        {
+            // 12-6-2026:BELANGRIJK: Moet niet zijn RPAREN? En precedence hier belangrijk?
+            while(!ops.empty() && ops.top() != TokenType::LPAREN)
+            {
+                applyOperator(nodes, ops);
+            }
+
+            if(!ops.empty() && ops.top() == TokenType::LPAREN)
+            {
+                ops.pop();
+            }
         }
         // ===== AND / OR =====
         // anders als tokentype gelijk is aan AND of OR
@@ -160,15 +195,21 @@ ASTNode* ASTBuilder::build(const std::vector<Token>& tokens)
             // Zolang er operators op de stack staan en de bovenste operator een hogere of gelijke prioriteit
             // heeft dan de huidige operator (denk dus: niet leeg = zolang er nog iets op de stack staat)
             // Dus geef het bovenste element van de stack en beoordeel hoe belangrijk die is (precedence)
-            while(!ops.empty() && precedence(ops.top()) >= precedence(token.type))
+            while(!ops.empty() 
+            && ops.top() != TokenType::LPAREN
+            && precedence(ops.top()) >= precedence(token.type))
             {
             // Roep dan de functie applyOperator op en geef nodes en ops mee als argumenten
                 applyOperator(nodes, ops);
             }
             // Push het tokentype op de stack ops
             ops.push(token.type);
+        //6-6-2026: moet hier niet ergens 'else' staan?
         }
     }
+
+    //11-6-2026 BELANGRIJK: LET OP JE GAAT PAS NAAR FLUSH ALS JE ALLE TOKEN BINNEN TOKENS 
+    // HEBT GEHAD. DUS NIET DIRECT NA EEN ELSE IF AND OF OR.
 
     //
     // ===== Flush Remaining Operators =====
@@ -176,6 +217,12 @@ ASTNode* ASTBuilder::build(const std::vector<Token>& tokens)
     // zolang er nog operators op de stack staan
     while(!ops.empty())
     {
+        //8-6-2026: Erbij gezet
+        if(ops.top() == TokenType::LPAREN)
+        {
+            ops.pop();
+            continue;
+        }
         // Roep dan de functie applyOperator op en geef nodes en ops mee als argumenten
         applyOperator(nodes, ops);
     }

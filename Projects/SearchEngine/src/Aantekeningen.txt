@@ -92,5 +92,7 @@ Wat er nog in verwerken:
 - DSA meer toepassen
 - MultiThreading Meer toepassen
 - Website/ visualisatie
+- Crawler (voor website)
+- Modern C++
 
 28-5-2026: 21:45uur: alles werkt en de NOT zojuist toegevoegd. Door met nieuwe chat die alles weet.

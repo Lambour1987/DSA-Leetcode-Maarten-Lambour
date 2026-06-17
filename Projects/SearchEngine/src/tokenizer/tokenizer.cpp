@@ -60,8 +60,30 @@ vector<Token> tokenizeQuery(const string& input)
             current += karakter;
             continue;
         }
+
+        //7-6-2026: Parentheses toegevoegd
         // ===========================
-        //3)    WHITESPACE 
+        //3)    PARENTHESES
+        // ===========================
+        // Als karakter gelijk is aan openingshaakje (
+        if(karakter =='(')
+        {
+            // Voeg nieuw token object LPAREN toe aan tokens met waarde openingshaakje
+            tokens.push_back({TokenType::LPAREN,"("});
+            // Ga door
+            continue;
+        }
+        //Als karakter gelijk is aan sluitingshaakje
+        if(karakter == ')')
+        {
+            // Duw rechterparen met waarde sluitingshaakje op tokens
+            tokens.push_back({TokenType::RPAREN, ")"});
+            // Ga door
+            continue;
+        }
+        //7-6-2026: Whitespace nummer opgeschoven
+        // ===========================
+        //4)    WHITESPACE 
         // ===========================
         // Anders als dit karakter een whitespace is(spatie, tab, newline etc)
         if(isspace(karakter))
@@ -126,6 +148,12 @@ vector<Token> tokenizeQuery(const string& input)
             // Voeg toe aan tokens OR, OR
             tokens.push_back({TokenType::OR,"OR"});
         }
+        //10-6-2026: Toegevoegd: 'NOT" want die stond er nog niet.
+        else if(current=="NOT")
+        {
+            tokens.push_back({TokenType::NOT, "NOT"});
+        }
+
         // Anders
         else
         {

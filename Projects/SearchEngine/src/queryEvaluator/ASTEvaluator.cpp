@@ -1,6 +1,7 @@
 //4-6-2026 ASTEvaluator
 
 #include <iostream>
+#include <unordered_set>
 
 // Voeg ASTEvaluator.h toe 
 #include "ASTEvaluator.h"
@@ -31,17 +32,47 @@ std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& 
         //4-6-2026: Test
         std::cout << "TERM VALUE: " << node->value << std::endl;
 
+        //9-6-2026: Toegevoegd:
+        std::cout << "LOOKUP KEY: [" << node->value << "]" << std::endl;
+
+        //9-6-2026: Toegevoegd:
+        std::cout << "NODE VALUE RAW: [" << node->value << "] size=" << node->value.size() << std::endl;
+
         // Zoek in de index de waarde op van de node en stop deze in een variabele it (auto)
         auto it = index.find(node->value);
         // Vervolgens: als it niet gevonden is: end is de iterator die 1 positie voorbij het laatste element
         // staat. 'End' kan je gebruiken omdat index een set is
-        if(it!=index.end())
+        //9-6-2026: Ook weer toegevoegd.
+        if(it == index.end())
         {
-            // retourneer het second deel val it (want it is een...)
-            return it->second;
+            return {};
+        }
+
+        //16-6-2026: omdat we de index hebben gewijzigd moeten we e.e.a. aanpassen
+        std::unordered_set<std::string>result;
+
+            // weggehaald:
+            // std::cout << "DOCS FOR " << node->value << ": ";
+        for(const auto& pair : it->second)
+        {
+            const std::string& doc = pair.first;
+            const std::vector<int>& positions = pair.second;
+            
+            std::cout << "DOC" << doc << " POSITIONS: ";
+
+            for(int p: positions)
+            {
+                std::cout << p << " ";
+            }
+            // std::cout << std::endl;
+            // return it->second;
+            std::cout<<std::endl;
+
+            result.insert(doc);
         }
         // Return leeg
-        return {};
+        // 16-6-2026: moet zijn return resultaat
+        return result;
     }
 
     //
@@ -102,7 +133,7 @@ std::unordered_set<std::string> evaluateAST(ASTNode* node, const InvertedIndex& 
             //4-6-2026: Was eerst: allDocs.insert(allDocs.begin(), allDocs.end()); gewijzigd naar:
             for(const auto&doc: docs)
             {
-                allDocs.insert(doc);
+                allDocs.insert(doc.first);
             }
         }
         // voor alle documenten in child

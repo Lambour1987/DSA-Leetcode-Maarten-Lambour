@@ -4,6 +4,8 @@
 #pragma once
 // Includeer string
 #include <string>
+#include <unordered_map>
+#include <vector>
 
 // maak een enum class Nodetype met daarin TERM, AND, OR, NOT
 // Class: alles is bij default private (bedoelt voor 'gedrag + encapsulation': objet met logica en bescherming).
@@ -11,6 +13,11 @@
 //
 //  == NodeType
 //
+
+//16-6-2026: vernieuwd
+// ===============================
+//          AST STRUCTURE
+// ===============================
 enum class NodeType
 {
     TERM,   // TERM is een AST-node type: een leaf in de AST (zoekwoord of phrase.)
@@ -53,3 +60,11 @@ struct ASTNode
 // Met parameterized constructor doen we
 // ASTNode* n = new ASTNode(NodeType::TERM, "apple");
 // Compacter, consitent
+
+
+// 16-6-2026: NIEUW
+// ==============================
+// SHARED INDEX TYPE
+// ==============================
+
+using InvertedIndex = std::unordered_map<std::string, std::unordered_map<std::string,std::vector<int>>>;

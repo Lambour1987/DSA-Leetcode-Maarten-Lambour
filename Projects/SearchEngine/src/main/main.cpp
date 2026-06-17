@@ -14,6 +14,7 @@
 #include "../tokenizer/tokenizer.h"
 #include "../queryParser/queryParser.h"
 #include "../queryEvaluator/ASTEvaluator.h"
+#include "../test_queries/testqueries.h"
 
 #include <iostream>
 // stdlib overbodig
@@ -36,27 +37,68 @@ using namespace std;
 // ga std::filesystem voortaan korter schrijven als fs (alias)
 namespace fs = std::filesystem;
 
-// 4-6-2026: Hier toegevoegd: main.cpp
-// functie printAST met als parameter een pointer naar een ASTNode en default parameter diepte van 0.
-void printAST(ASTNode* node, int depth = 0)
+//9-6-2026 Test toegevoegd
+string nodeName(NodeType type)
 {
-    // Als er geen node is retourneer 
-    if(!node) return;
-
-    // Voor integer 0 tot integer kleiner dan diepte, verhoog i.
-    for(int i=0; i<depth;i++)
+    switch(type)
     {
-        cout<<" ";
+        case NodeType::TERM: return "TERM";
+        case NodeType::AND:  return "AND";
+        case NodeType::OR:   return "OR";
+        case NodeType::NOT:  return "NOT";
     }
-    // Zet de waarde van het node type (ik denk enum) om naar een integer en print de waarde.
-    // Dat wordt dan TERM = 0, AND =1, OR =2, NOT=3
-    // (dit is dus omzetten en niet zoals 'auto' afleiden van het datatype)
-    cout << static_cast<int>(node->type) << endl;
-    // Recursief printAST oproepen op linkernode
-    printAST(node->left, depth + 1);
-    // Recursief printAST oproepen op rechternode
-    printAST(node->right, depth + 1);
+
+    return "?";
 }
+
+// // 4-6-2026: Hier toegevoegd: main.cpp
+// // functie printAST met als parameter een pointer naar een ASTNode en default parameter diepte van 0.
+// void printAST(ASTNode* node, int depth = 0)
+// {
+//     // Als er geen node is retourneer 
+//     if(!node) return;
+
+//     // Voor integer 0 tot integer kleiner dan diepte, verhoog i.
+//     for(int i=0; i<depth;i++)
+//     {
+//         cout<<" ";
+//     }
+//     // Zet de waarde van het node type (ik denk enum) om naar een integer en print de waarde.
+//     // Dat wordt dan TERM = 0, AND =1, OR =2, NOT=3
+//     // (dit is dus omzetten en niet zoals 'auto' afleiden van het datatype)
+//     cout << static_cast<int>(node->type) << endl;
+//     // Recursief printAST oproepen op linkernode
+//     printAST(node->left, depth + 1);
+//     // Recursief printAST oproepen op rechternode
+//     printAST(node->right, depth + 1);
+// }
+
+//9-6-2026: Deze erbij gezet kan weer weg deze hele functie
+//16-6-2026: onderstaande kan weg
+// void printAST(ASTNode* node, int depth = 0)
+// {
+//     if(!node)
+//     {
+//         return;
+//     }
+
+//     for(int i = 0; i < depth; i++)
+//     {
+//         cout << "  ";
+//     }
+
+//     cout << nodeName(node->type);
+
+//     if(node->type == NodeType::TERM)
+//     {
+//         cout << " (" << node->value << ")";
+//     }
+
+//     cout << endl;
+
+//     printAST(node->left, depth + 1);
+//     printAST(node->right, depth + 1);
+// }
 
 
 // ============================
@@ -123,33 +165,83 @@ int main()
     //13-5-2026: Test voor queryparser: 
     // Kan volgens mij weg
     //4-6-2026: we vervangen onze query van vector<Token> tokens = tokenizeQuery("hello AND amsterdam"); naar;
-    vector<Token> tokens = tokenizeQuery("hello OR random AND project");
+    //7-6-2026: Deze regel tijdelijk vervangen: vector<Token> tokens = tokenizeQuery("hello OR random AND project"); door: t.b.v parentheses
+    //10-6-2026: Input:
 
+    //15-6-2026: Weggehaald omdat we nu tests hebben: vector<Token> tokens = tokenizeQuery("(hello)");
+    
     //4-6-2026: direct nog een test na tokenizeQuery("NOT hello");
-    for(const auto& token : tokens)
-{
-    cout << "TYPE=" << static_cast<int>(token.type)
-         << " VALUE=" << token.value << endl;
-}
+    //7-6-2026: aangevuld met parentheses test
+    //8-6-2026: Tijdelijk weer weggehaald
+    // for(const auto& token : tokens)
+    // {
+    //     cout << "TYPE=" << static_cast<int>(token.type)
+    //         << " VALUE=" << token.value << endl;
+    // }
+
+    //9-6-2026: En dit ervoor in de plaats
+    //10-6-2026: Dit is debuggen dit hoeft niet in mijn diagram
+    //15-6-2026: Dit hele stuk kan we omdat we een testfile hebben
+    // cout << "\n=== TOKENS ===\n";
+
+    // for(const auto& token : tokens)
+    // {
+    //     cout << "TYPE="
+    //         << static_cast<int>(token.type)
+    //         << " VALUE="
+    //         << token.value
+    //         << endl;
+    // }
+
+    // 8-6-2026: Test Postfix. Maar ook weer gehaald
+    // Roep toPostfix op met tokens en sla op in variabele auto postfix
+    // auto postfix = toPostfix(tokens);
+    // // Print "POSTTIX ";
+    // cout<<"POSTFIX: ";
+    // // Voor token in postfix
+    // for(const auto& token : postfix)
+    //     // print tokenwaarde
+    //     cout<<token.value<<" ";
+    // // Print
+    // cout<<endl;
 
     //4-6-2026: Test voor AST Builder oproepen: deze komt dus in plaats van toPostfix
-    ASTBuilder builder;
-    ASTNode* root = builder.build(tokens);
+    //15-6-2026: Kan weg omdat we een testfile hebben:
+    // ASTBuilder builder;
+    // 8-6-2026: gewijzigd naar ASTNode* root = builder.build(tokens);
+    //15-6-2026: Kan weg omdat we een testfile hebben:
+    // ASTNode* root = builder.build(tokens);
+
+    //8-6-2026: nog een keer hier neergezet:
+    // printAST(root);
+
+    //9-6-2026: NU dit neergezet:
+    //15-6-2026: Weg wegens testfile
+    // cout << "\n=== AST ===\n";
+    // printAST(root);
 
     //4-6-2026: Dit er later nog bijgezet
     //Roep functie evaluateAST op met parameters root en index en sla op in resultaat (auto)
-    auto ASTResult = evaluateAST(root,index);
+    //weg wegens testfile
+    // auto ASTResult = evaluateAST(root,index);
+
+    //15-6-2026: Dit is nieuw
+    runQueryTests("src/test_queries/testqueries.txt", index);
+
+    //9-6-2026 Erbij gezet
+    cout << "\n=== EVALUATION ===\n";
 
     // 4-6-2026: test toevoegen
+    // 15-6-2026: weggehaald
 
-    cout << "AST RESULT SIZE: " << ASTResult.size() << endl;
+    // cout << "AST RESULT SIZE: " << ASTResult.size() << endl;
 
-    for(const auto& file : ASTResult)
-    {
-        cout << file << endl;
-    }
-
-    printAST(root);
+    // for(const auto& file : ASTResult)
+    // {
+    //     cout << file << endl;
+    // }
+    //9-6-2026: KAn later weer terug.
+    //printAST(root);
 };
 // 4-6-2026: toPostfix etc weghalen. want AST komt hiervoor in de plaats. Mogelijk om dit later
 // nog erbij te voegen:
