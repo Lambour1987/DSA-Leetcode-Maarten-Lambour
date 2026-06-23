@@ -112,7 +112,7 @@ unordered_set<string> evaluatePostfix(const vector<Token>& postfix, const unorde
                 // Dus == result.end() is hetzelfde als. Dus als het niet in het
                 // resultaat staat. Voeg toe aan resultaat. Hashset is misschien makkelijker hier
                 // 15-5-2026: Als optimalisatie later hashset toevoegen
-                    result.insert(doc);
+                result.insert(doc);
             }
             // resultaat toevoegen aan stack
             St.push(result);

@@ -13,4 +13,4 @@
 // (denk er weer aan: binnen '.h' files werken met std en ';')
 void runQueryTests(
     const std::string& filename,
-    const std::unordered_map<std::string, std::unordered_map<std::string, std::vector<int>>>& index);
+    const std::unordered_map<std::string, std::unordered_map<std::string, std::vector<int>>>& index, const std::unordered_map<std::string,int>&docLength);

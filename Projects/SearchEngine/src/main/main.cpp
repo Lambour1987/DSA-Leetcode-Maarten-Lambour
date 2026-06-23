@@ -157,6 +157,30 @@ int main()
     }
     auto index = buildInvertedIndex(files);
 
+    //17-6-2026: toegevoegd
+    std::unordered_map<std::string,int> docLength;
+
+    //17-6-2026: Dit stuk weg
+    // for(const auto& [word, docs] : index)
+    // {
+    //     for(const auto& [doc, positions] : docs)
+    //     {
+    //         //17-6-2026: docLength[doc] = std::max(docLength[doc], (int)positions.size());
+    //         docLength[doc] += positions.size();
+
+    //     }
+    // }
+
+    //17-6-2026: dit wordt
+
+    for(const auto& file:files)
+    {
+        string content = readFile(file);
+        auto words = tokenize(content);
+
+        docLength[file.filename().string()] = words.size();
+    }
+
     // 7-5-2026: Deze weggehaald: multiSearch(index, "hello bye");
     // In plaats daarvan:
     // We gaan onder andere zoeken of de woorden 'search', 'multi' en 'rank' aan het begin voorkomen
@@ -226,7 +250,7 @@ int main()
     // auto ASTResult = evaluateAST(root,index);
 
     //15-6-2026: Dit is nieuw
-    runQueryTests("src/test_queries/testqueries.txt", index);
+    runQueryTests("src/test_queries/testqueries.txt", index, docLength);
 
     //9-6-2026 Erbij gezet
     cout << "\n=== EVALUATION ===\n";

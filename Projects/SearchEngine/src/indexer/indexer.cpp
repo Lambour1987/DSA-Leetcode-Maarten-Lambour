@@ -92,6 +92,8 @@ unordered_map<string, unordered_map<string, vector<int>>> buildInvertedIndex(con
 
         //16-6-2026: toegevoegd
         string doc = file.filename().string();
+        //17-6-2026
+        doc = cleanString(doc);
 
         //9-6-2026: toegevoegd:
          std::cout << "DOC: [" << file.filename().string() << "] size="

@@ -1,0 +1,3 @@
+17-6-2026: Programma waarin stambomen en familierelaties inzichtelijk
+gemaakt kunnen worden. makkelijk toe te voegen en denk aan tijdspaden 
+en wie erin mag zitten aanpassen

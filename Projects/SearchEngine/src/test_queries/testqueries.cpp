@@ -21,7 +21,7 @@ using namespace std;
 // functie runQueryTests met als parameters filename die niets teruggeeft
 // 16-6-2026: dit: void runQueryTests(const string& filename, const unordered_map<string, unordered_set<string>>&index)
 // gewijzig naar":
-void runQueryTests(const string& filename, const unordered_map<string, unordered_map<string, vector<int>>>&index)
+void runQueryTests(const string& filename, const unordered_map<string, unordered_map<string, vector<int>>>&index, const unordered_map<string,int>&docLength)
 {
     // input file stream lees bestand
     ifstream file(filename);
@@ -72,20 +72,22 @@ void runQueryTests(const string& filename, const unordered_map<string, unordered
 
         // roep de line functie op en pak de substring van 0 tot positie en sla die op in de string query
         // (moet dit dan geen auto zijn? of is het altijd een string?)
-        query = line.substr(0,pos);
+        //17-6-2026: ook nog trim erbij gezet. was query = line.substr(0,pos); wordt
+        query = trim(line.substr(0,pos));
 
         // pak alles vanaf positie +2 tot einde. (Gebruik +2 omdat we "=>" hebben). sla op in string expected part
-        expectedPart = line.substr(pos+2);
+        //17-6-2062: ook trim erbij geset
+        expectedPart = trim(line.substr(pos+2));
 
         // 15-6-26: Let op mogelijk iets anders hiervoor gebruiken. We hebben namelijk al een trim functie
         // in de commandparser staan. Nog doen
         // trim de basics: 
         // Zolang de query niet leeg is en de query op positie 0 gelijk is aan spatie, verwijder dan alles tussen 0 en 1?
         //15-6-2026: Deze kan dus weg while(!query.empty() && query[0]==' ') query.erase(0,1) en wordt:
-        query = trim(query);
+        //17-6-2026: kan weg want boven ineens verwerkt query = trim(query);
         // Zolang het verwachte deel niet leeg is en verwachte deel gelijk is aan spatie verwijder dan 1 karakter vanaf index 0
         //15-6-2026: En deze: while(!expectedPart.empty() && expectedPart[0]==' ') expectedPart.erase(0,1) wordt:
-        expectedPart = trim(expectedPart);
+        //17-6-2026: kan weg want boven ineens verwerkt expectedPart = trim(expectedPart);
 
         // ===========================
         // 2. parse expected results
@@ -93,7 +95,7 @@ void runQueryTests(const string& filename, const unordered_map<string, unordered
 
         // maak een set van strings genaamd expected aan
         // 17-6-2026: Gewzijgt naar een map:  unordered_set<string> expected;
-        unordered_map<string, int> expected;
+        unordered_map<string, double> expected;
         // maak een stringstream aan van de string expectedPart en noem deze ss:
         // je verandert dan een string in iets dat zich gedraagt als een input stream.
         // Zonder stringstream: zelf splitten, indexen zoeken, substr gebruiken. Met stringstream:
@@ -140,7 +142,33 @@ void runQueryTests(const string& filename, const unordered_map<string, unordered
             // cout << "AST:\n";
             // printAST(root);
 
-            auto actual = evaluateAST(root, index);
+            //17-6-2026: Weggehaald auto actual = evaluateAST(root, index); en wrodt
+
+            int totalDocs = index.size();
+            unordered_map<string,int> docLength;
+            
+            //17-6-2026: dit weg en vervangen voor: ASTEvaluator evaluator(totalDocs, docLength);
+            // for (const auto&[word, docs]:index)
+            // {
+            //     for(const auto& [ doc, positions]:docs)
+            //     {
+            //         docLength[doc] = max(docLength[doc], (int)positions.size());
+            //     }
+            // }
+
+            //17-6-2026: Weer gewijzigd naar
+            // for(const auto& file : index)
+            // {
+            //     for(const auto& [doc, positions]:file.second)
+            //     {
+            //         docLength[doc]= positions.size();
+            //     }
+            // }
+            
+
+            ASTEvaluator evaluator(totalDocs, docLength);
+
+            auto actual = evaluator.evaluateAST(root,index);
 
             // ===========================
             // 4. compare
@@ -168,7 +196,7 @@ void runQueryTests(const string& filename, const unordered_map<string, unordered
                     cout<<d.first<<" "<<d.second;
                 }
 
-                cout<< "\nATUAL: ";
+                cout<< "\nACTUAL: ";
                 // voor alle d in actual print d
                 for(auto& d: actual) 
                 {
