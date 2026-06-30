@@ -87,6 +87,7 @@ Wat er nog in verwerken:
 - Python visualisatie
 - AI Agent?
 - CI/CD pipeline? of testen of is dat hetzelfde?
+- INheritence, Polymorphisme, Datahiding etc
 - Design Patterns toepassen waar nodig en handig
 - System Design Toepassen
 - DSA meer toepassen
@@ -94,5 +95,6 @@ Wat er nog in verwerken:
 - Website/ visualisatie
 - Crawler (voor website)
 - Modern C++
+- Meerdere gebruikers (users en superusers)
+- logsysteem?
 
-28-5-2026: 21:45uur: alles werkt en de NOT zojuist toegevoegd. Door met nieuwe chat die alles weet.

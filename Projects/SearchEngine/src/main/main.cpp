@@ -116,6 +116,7 @@ int main()
     // 4-6-2026: gewijzigd van string folder = "src/test_data"; naar:
     // fs::path folder = fs::current_path()/ "test_data";
     // 4-6-2026: weer gewijzigd naar
+    // 24-6-2026: Dit is dus gewoon een tekst want tussen " "
     string folder = "./src/test_data/";
     
     // 1) Check folder eerst
