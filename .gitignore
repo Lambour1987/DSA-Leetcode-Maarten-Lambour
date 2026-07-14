@@ -27,3 +27,6 @@ __pycache__/
 #Engines
 Engines/
 Projects/Stamboomprogramma/
+
+# Separate repositories (neergezet per 14-7-2026:opdelen)
+Projects/BoostAudio/
