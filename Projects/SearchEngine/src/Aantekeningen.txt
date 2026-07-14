@@ -96,5 +96,6 @@ Wat er nog in verwerken:
 - Crawler (voor website)
 - Modern C++
 - Meerdere gebruikers (users en superusers)
-- logsysteem?
-
+- loggingsysteem
+- inlogsysteem
+- GUI framework voor C++ (iets visueels)

@@ -28,5 +28,13 @@ __pycache__/
 Engines/
 Projects/Stamboomprogramma/
 
-# Separate repositories (neergezet per 14-7-2026:opdelen)
+# Separate repositories / private projects (14-7-2026: opsplitsen portfolio)
 Projects/BoostAudio/
+
+# Private projects
+Projects/DroneSimulator/
+Projects/HBO-Tentamen/
+Projects/NetWork PC system/
+Projects/PersonalHistoryApp/
+Projects/SysteemMonitoringTool/
+
