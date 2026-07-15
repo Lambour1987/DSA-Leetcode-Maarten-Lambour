@@ -1,0 +1,1 @@
+//1-7-2026: Idee om appje te bouwen die communiceert met meerdere computers.
