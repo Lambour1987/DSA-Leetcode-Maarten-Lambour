@@ -1,0 +1,32 @@
+#1st Approach: Monotonic Increasing Stack
+# Time:
+# Space:
+
+class Solution:
+    def maxSumMinProduct(self, nums: list[int]) -> int:
+        res = 0
+        stack = []
+        prefix = [0]
+        for n in nums:
+            prefix.append(prefix[-1]+n)
+
+        for i, n in enumerate(nums): #to get numbers and index at same time
+            newStart = i
+            while stack and stack[-1][1]:
+                start, val = stack.pop()
+                total = prefix[i] - prefix[start]
+                res = max(res, val * total)
+                newStart = start
+            stack.append((newStart, n))
+
+        for start, val in stack:
+            total = prefix[len(nums)] - prefix[start]
+            res = max(res, val * total)
+
+        return res % (10**9 + 7)
+
+example = Solution()
+nums = [1, 2, 3, 2]
+
+result = example.maxSumMinProduct(nums)
+print(result)
